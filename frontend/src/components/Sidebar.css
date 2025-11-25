@@ -75,12 +75,13 @@
 
 .nav-item {
   display: flex;
+  max-width: 200px;
   align-items: center;
   gap: 12px;
   padding: 12px;
   border-radius: 12px;
-  color: var(--text-secondary); /* Uses the new brighter grey in dark mode */
-  font-weight: 500; /* Make text slightly bolder */
+  color: var(--text-secondary);
+  font-weight: 500;
   transition: all 0.2s ease;
   white-space: nowrap;
   cursor: pointer;
@@ -89,7 +90,7 @@
 .nav-item:hover {
   background: rgba(255, 255, 255, 0.5);
   color: var(--primary);
-  transform: translateX(4px);
+  transform: translateX(5px);
   background: var(--bg-card); /* Specific hover color */
   color: var(--text-primary); /* Bright white on hover */
   transform: translateX(4px);
@@ -97,7 +98,7 @@
 
 .nav-item.active {
   background: var(--primary);
-  color: #ffffff; /* Always white for active state */
+  color: #ffffff;
   box-shadow: 0 8px 16px -4px var(--primary-glow);
 }
 
@@ -136,6 +137,7 @@
   font-weight: 800;
   /* Use the new gradient variable logic */
   background: linear-gradient(135deg, var(--text-primary), var(--primary));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
