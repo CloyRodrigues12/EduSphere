@@ -9,10 +9,11 @@ import {
   ChevronLeft,
   ChevronRight,
   LogOut,
+  X,
 } from "lucide-react";
 import "./Sidebar.css";
 
-const Sidebar = ({ collapsed, setCollapsed }) => {
+const Sidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) => {
   const navItems = [
     { icon: LayoutDashboard, label: "Dashboard", path: "/" },
     { icon: Users, label: "Students", path: "/students" },
@@ -22,46 +23,74 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
   ];
 
   return (
-    <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
-      {/* Header */}
-      <div className="sidebar-header">
-        <div className="logo-icon">E</div>
-        {!collapsed && <span className="logo-text">EduSphere</span>}
-      </div>
+    <>
+      {/* Mobile Backdrop (Click to close) */}
+      <div
+        className={`mobile-backdrop ${mobileOpen ? "open" : ""}`}
+        onClick={() => setMobileOpen(false)}
+      />
 
-      {/* Scrollable Nav Area */}
-      <div className="sidebar-nav">
-        {navItems.map((item) => (
-          <NavLink
-            to={item.path}
-            key={item.path}
-            className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
-            title={collapsed ? item.label : ""}
+      <aside
+        className={`sidebar ${collapsed ? "collapsed" : ""} ${
+          mobileOpen ? "mobile-open" : ""
+        }`}
+      >
+        {/* Header */}
+        <div className="sidebar-header">
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div className="logo-icon">E</div>
+            {(!collapsed || mobileOpen) && (
+              <span className="logo-text">EduSphere</span>
+            )}
+          </div>
+
+          {/* Close Button (Mobile Only) */}
+          <button
+            className="icon-btn mobile-close-btn"
+            onClick={() => setMobileOpen(false)}
           >
-            <item.icon size={20} />
-            {!collapsed && <span>{item.label}</span>}
-          </NavLink>
-        ))}
-      </div>
+            <X size={24} />
+          </button>
+        </div>
 
-      {/* Fixed Footer */}
-      <div className="sidebar-footer">
-        <button
-          className="nav-item logout"
-          style={{ width: "100%", border: "none", background: "transparent" }}
-        >
-          <LogOut size={20} />
-          {!collapsed && <span>Logout</span>}
-        </button>
+        {/* Nav */}
+        <div className="sidebar-nav">
+          {navItems.map((item) => (
+            <NavLink
+              to={item.path}
+              key={item.path}
+              className={({ isActive }) =>
+                `nav-item ${isActive ? "active" : ""}`
+              }
+              title={collapsed && !mobileOpen ? item.label : ""}
+              onClick={() => setMobileOpen(false)} // Close menu on click
+            >
+              <item.icon size={20} />
+              {(!collapsed || mobileOpen) && <span>{item.label}</span>}
+            </NavLink>
+          ))}
+        </div>
 
-        <button
-          className="collapse-btn"
-          onClick={() => setCollapsed(!collapsed)}
-        >
-          {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-        </button>
-      </div>
-    </aside>
+        {/* Footer */}
+        <div className="sidebar-footer">
+          <button
+            className="nav-item logout"
+            style={{ width: "100%", border: "none", background: "transparent" }}
+          >
+            <LogOut size={20} />
+            {(!collapsed || mobileOpen) && <span>Logout</span>}
+          </button>
+
+          {/* Hide collapse button on mobile */}
+          <button
+            className="collapse-btn desktop-only"
+            onClick={() => setCollapsed(!collapsed)}
+          >
+            {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+          </button>
+        </div>
+      </aside>
+    </>
   );
 };
 

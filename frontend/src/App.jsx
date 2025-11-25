@@ -26,9 +26,9 @@ const Placeholder = ({ title }) => (
 
 const Layout = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const location = useLocation(); // Hook to get current URL
+  const [mobileOpen, setMobileOpen] = useState(false); // New Mobile State
+  const location = useLocation();
 
-  // Logic to determine Page Title based on URL
   const getTitle = (path) => {
     switch (path) {
       case "/":
@@ -56,11 +56,16 @@ const Layout = () => {
         background: "var(--bg-main)",
       }}
     >
-      {/* Sidebar */}
-      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
+      {/* Sidebar with Mobile Props */}
+      <Sidebar
+        collapsed={collapsed}
+        setCollapsed={setCollapsed}
+        mobileOpen={mobileOpen}
+        setMobileOpen={setMobileOpen}
+      />
 
-      {/* Main Content */}
       <div
+        className="main-content-wrapper"
         style={{
           flex: 1,
           display: "flex",
@@ -70,15 +75,18 @@ const Layout = () => {
           transition: "all 0.3s ease",
         }}
       >
-        {/* Pass the dynamic title here */}
-        <Topbar title={getTitle(location.pathname)} />
+        {/* Topbar needs setter to open menu */}
+        <Topbar
+          title={getTitle(location.pathname)}
+          onMenuClick={() => setMobileOpen(true)}
+        />
 
         <div style={{ flex: 1, overflowY: "auto", paddingBottom: "2rem" }}>
           <Routes>
             <Route path="/" element={<DashboardHome />} />
             <Route
               path="/upload"
-              element={<Placeholder title="Student Management" />}
+              element={<Placeholder title="Fees Module" />}
             />
             <Route
               path="/students"

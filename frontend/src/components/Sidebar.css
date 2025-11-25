@@ -141,3 +141,72 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* Hide Mobile Elements on Desktop */
+.mobile-backdrop,
+.mobile-close-btn {
+  display: none;
+}
+
+.mobile-backdrop,
+.mobile-close-btn {
+  display: none !important; /* Critical Fix: Never show X on Desktop */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%; /* Hide off-screen */
+    height: 100vh;
+    width: 280px !important; /* Full width sidebar on mobile */
+    z-index: 1000;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: none;
+  }
+
+  .sidebar.mobile-open {
+    left: 0; /* Slide in */
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Dark Overlay Background */
+  .mobile-backdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 900;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .mobile-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Show Close Button */
+  .mobile-close-btn {
+    display: flex;
+    margin-left: auto;
+    color: var(--text-secondary);
+  }
+
+  /* Hide Desktop Collapse Button */
+  .desktop-only {
+    display: none !important;
+  }
+
+  /* Ensure Logo text is visible on mobile even if desktop was collapsed */
+  .logo-text {
+    opacity: 1 !important;
+    width: auto !important;
+  }
+}

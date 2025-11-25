@@ -157,3 +157,26 @@
   font-size: 0.75rem;
   color: var(--text-secondary);
 }
+/* ... existing code ... */
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.menu-trigger {
+  display: none; /* Hidden on desktop */
+}
+
+@media (max-width: 768px) {
+  .menu-trigger {
+    display: flex; /* Visible on mobile */
+    color: var(--text-primary);
+  }
+
+  .page-title {
+    font-size: 1.1rem;
+    display: block; /* Keep title visible */
+  }
+}

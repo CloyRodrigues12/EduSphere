@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Sun, Moon, Bell, Search } from "lucide-react";
+import { Sun, Moon, Bell, Search, Menu } from "lucide-react"; // Import Menu
 import "./Topbar.css";
 
-const Topbar = ({ title }) => {
+const Topbar = ({ title, onMenuClick }) => {
   const [theme, setTheme] = useState("light");
 
-  // Handle Theme Toggle
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
@@ -17,17 +16,19 @@ const Topbar = ({ title }) => {
   return (
     <header className="topbar glass-panel">
       <div className="topbar-left">
+        {/* Hamburger Menu Button (Visible only on Mobile) */}
+        <button className="icon-btn menu-trigger" onClick={onMenuClick}>
+          <Menu size={24} />
+        </button>
         <h1 className="page-title">{title}</h1>
       </div>
 
       <div className="topbar-right">
-        {/* Search Bar */}
         <div className="search-container">
           <Search size={18} className="search-icon" />
-          <input type="text" placeholder="Search anything..." />
+          <input type="text" placeholder="Search..." />
         </div>
 
-        {/* Actions */}
         <button className="icon-btn" onClick={toggleTheme}>
           {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
         </button>
@@ -37,7 +38,6 @@ const Topbar = ({ title }) => {
           <span className="notification-dot"></span>
         </button>
 
-        {/* Profile */}
         <div className="profile-chip">
           <img
             src="https://ui-avatars.com/api/?name=Admin+User&background=random"
