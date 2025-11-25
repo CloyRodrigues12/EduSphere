@@ -1,18 +1,50 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import DashboardHome from "./pages/DashboardHome";
 
-// Placeholders
+// Placeholder components
 const Placeholder = ({ title }) => (
   <div style={{ padding: "2rem" }}>
-    <h2>{title}</h2>
+    <div
+      className="glass-panel"
+      style={{ padding: "3rem", borderRadius: "20px" }}
+    >
+      <h2 style={{ color: "var(--text-primary)" }}>{title}</h2>
+      <p style={{ color: "var(--text-secondary)" }}>
+        This module is under development.
+      </p>
+    </div>
   </div>
 );
 
 const Layout = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const location = useLocation(); // Hook to get current URL
+
+  // Logic to determine Page Title based on URL
+  const getTitle = (path) => {
+    switch (path) {
+      case "/":
+        return "Dashboard Overview";
+      case "/upload":
+        return "Data Ingestion";
+      case "/students":
+        return "Student Management";
+      case "/fees":
+        return "Fees Collection";
+      case "/research":
+        return "AI Research Assistant";
+      default:
+        return "EduSphere";
+    }
+  };
 
   return (
     <div
@@ -21,12 +53,13 @@ const Layout = () => {
         height: "100vh",
         width: "100vw",
         overflow: "hidden",
+        background: "var(--bg-main)",
       }}
     >
-      {/* Fixed Sidebar */}
+      {/* Sidebar */}
       <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
 
-      {/* Scrollable Main Content */}
+      {/* Main Content */}
       <div
         style={{
           flex: 1,
@@ -34,18 +67,22 @@ const Layout = () => {
           flexDirection: "column",
           height: "100vh",
           overflow: "hidden",
-          transition: "margin-left 0.3s ease",
+          transition: "all 0.3s ease",
         }}
       >
-        <Topbar title="Dashboard Overview" />
+        {/* Pass the dynamic title here */}
+        <Topbar title={getTitle(location.pathname)} />
 
         <div style={{ flex: 1, overflowY: "auto", paddingBottom: "2rem" }}>
           <Routes>
             <Route path="/" element={<DashboardHome />} />
-            <Route path="/upload" element={<Placeholder title="upload" />} />
+            <Route
+              path="/upload"
+              element={<Placeholder title="Student Management" />}
+            />
             <Route
               path="/students"
-              element={<Placeholder title="Students Module" />}
+              element={<Placeholder title="Student Management" />}
             />
             <Route path="/fees" element={<Placeholder title="Fees Module" />} />
             <Route

@@ -58,17 +58,16 @@
 
 /* --- Nav (The Scrolling Part) --- */
 .sidebar-nav {
-  flex: 1; /* Takes up all available empty space */
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  overflow-y: auto; /* Scroll ONLY this section if needed */
+  overflow-y: auto;
   overflow-x: hidden;
-  min-height: 0; /* Flexbox hack to allow scrolling */
+  min-height: 0;
   margin-bottom: 1rem;
 }
 
-/* Remove list styles to fix the "Grey Dot" */
 .sidebar-nav a {
   text-decoration: none;
   list-style: none;
@@ -80,7 +79,8 @@
   gap: 12px;
   padding: 12px;
   border-radius: 12px;
-  color: var(--text-muted);
+  color: var(--text-secondary); /* Uses the new brighter grey in dark mode */
+  font-weight: 500; /* Make text slightly bolder */
   transition: all 0.2s ease;
   white-space: nowrap;
   cursor: pointer;
@@ -90,12 +90,15 @@
   background: rgba(255, 255, 255, 0.5);
   color: var(--primary);
   transform: translateX(4px);
+  background: var(--bg-card); /* Specific hover color */
+  color: var(--text-primary); /* Bright white on hover */
+  transform: translateX(4px);
 }
 
 .nav-item.active {
   background: var(--primary);
-  color: white;
-  box-shadow: 0 8px 16px -4px rgba(79, 70, 229, 0.3);
+  color: #ffffff; /* Always white for active state */
+  box-shadow: 0 8px 16px -4px var(--primary-glow);
 }
 
 /* --- Footer (Fixed at Bottom) --- */
@@ -126,4 +129,13 @@
   background: white;
   color: var(--primary);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: 800;
+  /* Use the new gradient variable logic */
+  background: linear-gradient(135deg, var(--text-primary), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

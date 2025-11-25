@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 import "./DashboardHome.css";
 import { TrendingUp, Users, FileText, CreditCard } from "lucide-react";
@@ -21,6 +22,15 @@ const StatCard = ({ title, value, subtext, icon: Icon, color, delay }) => (
     </div>
   </motion.div>
 );
+
+StatCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  subtext: PropTypes.string.isRequired,
+  icon: PropTypes.elementType.isRequired,
+  color: PropTypes.string.isRequired,
+  delay: PropTypes.number.isRequired,
+};
 
 const DashboardHome = () => {
   return (
