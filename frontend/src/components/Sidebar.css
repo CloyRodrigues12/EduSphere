@@ -8,6 +8,8 @@
   display: flex;
   flex-direction: column; /* Stack items vertically */
   padding: 1.5rem;
+  border-bottom-right-radius: 12px;
+  border-top-right-radius: 12px;
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 50;
   position: relative;
